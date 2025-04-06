@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaagAI - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, 
+                #0a7f89 0%,
+                #b21f57 25%,
+                #4169E1 50%,
+                #FF69B4 75%,
+                #0a7f89 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            padding: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem;
+            margin: 0;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        nav a i {
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: linear-gradient(45deg, #0a7f89, #b21f57);
+            color: white;
+            box-shadow: 0 4px 15px rgba(10, 127, 137, 0.3);
+        }
+
+        /* Tooltip styles */
+        nav a::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -40px;
+        }
+
+        .login-container {
+            width: 40rem;
+            padding: 2rem;
+            background: rgba(105, 125, 148, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(1, 67, 99, 0.1);
+            align-content: center;
+            margin-left: 17rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .form-group input {
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0a7f89;
+            box-shadow: 0 0 0 2px rgba(10, 127, 137, 0.3);
+        }
+
+        .login-button {
+            background: linear-gradient(45deg, #0a7f89, #b21f57);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 127, 137, 0.3);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .trial-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .trial-info h4 {
+            margin: 0 0 0.5rem 0;
+            color: #0a7f89;
+        }
+
+        .demo-credentials {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .demo-credentials h4 {
+            margin: 0 0 0.5rem 0;
+            color: #0a7f89;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding-bottom: 3rem;
+            }
+            
+            nav {
+                position: static;
+                margin-top: 1rem;
+            }
+
+            .login-container {
+                margin: 50px auto;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="home.html" title="Home"><i class="fas fa-home"></i></a>
+                <a href="index.html" title="Analysis"><i class="fas fa-chart-line"></i></a>
+                <a href="about.html" title="About Us"><i class="fas fa-info-circle"></i></a>
+            </nav>
+            <h1>RaagAI</h1>
+            <p>Indian Classical Music Recognition and Generation</p>
+        </header>
+
+        <main>
+            <div class="login-container">
+                <h2>Login</h2>
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="error-message" id="errorMessage">Invalid username or password</div>
+                    <button type="submit" class="login-button">Login</button>
+                </form>
+
+                <div class="trial-info">
+                    <h4>Free Trials</h4>
+                    <p>You have <span id="remainingTrials">2</span> free trials remaining. After using all trials, you'll need to log in to continue generating music.</p>
+                </div>
+
+                <div class="demo-credentials">
+                    <h4>Demo Credentials</h4>
+                    <p>Username: demo</p>
+                    <p>Password: demo123</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const remainingTrials = document.getElementById('remainingTrials');
+            
+            // Get remaining trials from localStorage
+            const generationCount = parseInt(localStorage.getItem('musicGenerationCount') || '0');
+            const trialsLeft = 2 - generationCount;
+            remainingTrials.textContent = trialsLeft > 0 ? trialsLeft : 0;
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Check credentials (demo account)
+                if (username === 'demo' && password === 'demo123') {
+                    console.log('Login successful');
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('musicGenerationCount', '0');
+                    window.location.href = 'index.html';
+                } else {
+                    console.log('Login failed');
+                    errorMessage.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaagAI - Music Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, 
+                #0a7f89 0%,
+                #b21f57 25%,
+                #4169E1 50%,
+                #FF69B4 75%,
+                #0a7f89 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            padding: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem;
+            margin: 0;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        nav a i {
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: linear-gradient(45deg, #0a7f89, #b21f57);
+            color: white;
+            box-shadow: 0 4px 15px rgba(10, 127, 137, 0.3);
+        }
+
+        /* Tooltip styles */
+        nav a::after {
+            content: attr(title);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: -40px;
+        }
+
+        .login-status {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .login-status i {
+            color: #0a7f89;
+        }
+
+        .login-status.logged-in i {
+            color: #4CAF50;
+        }
+
+        .login-button {
+            background: linear-gradient(45deg, #0a7f89, #b21f57);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 127, 137, 0.3);
+        }
+
+        .logout-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logout-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding-bottom: 3rem;
+            }
+            
+            nav {
+                position: static;
+                margin-top: 1rem;
+            }
+
+            .login-status {
+                position: static;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="home.html" title="Home"><i class="fas fa-home"></i></a>
+                <a href="index.html" class="active" title="Analysis"><i class="fas fa-chart-line"></i></a>
+                <a href="about.html" title="About Us"><i class="fas fa-info-circle"></i></a>
+            </nav>
+            <div id="loginStatus" class="login-status">
+                <i class="fas fa-user"></i>
+                <span id="loginText">Not logged in</span>
+                <button id="loginButton" class="login-button">Login</button>
+                <button id="logoutButton" class="logout-button" style="display: none;">Logout</button>
+            </div>
+            <h1>RaagAI</h1>
+            <p>Indian Classical Music Recognition and Generation</p>
+        </header>
+
+        <main>
+            <section class="recognition-section">
+                <h2>Music Recognition</h2>
+                <div class="audio-controls">
+                    <button id="recordButton" class="btn">Start Recording</button>
+                </div>
+                <div id="recognitionResult" class="result-box">
+                    <h3>Recognized Raga: <span id="ragaName">-</span></h3>
+                </div>
+            </section>
+
+            <section class="generation-section">
+                <h2>Music Generation</h2>
+                <div class="instrument-grid">
+                    <div class="instrument-item" data-instrument="sitar">Sitar</div>
+                    <div class="instrument-item" data-instrument="tabla">Tabla</div>
+                    <div class="instrument-item" data-instrument="flute">Flute</div>
+                    <div class="instrument-item" data-instrument="veena">Veena</div>
+                    <div class="instrument-item" data-instrument="tanpura">Tanpura</div>
+                    <div class="instrument-item" data-instrument="santoor">Santoor</div>
+                    <div class="instrument-item" data-instrument="kanjira">Kanjira</div>
+                    <div class="instrument-item" data-instrument="sarangi">Sarangi</div>
+                </div>
+                <button id="generateButton" class="btn" disabled>Generate Music</button>
+            </section>
+        </main>
+
+        <div id="visualization" class="visualization-canvas"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginStatus = document.getElementById('loginStatus');
+            const loginText = document.getElementById('loginText');
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                loginStatus.classList.add('logged-in');
+                loginText.textContent = 'Logged in';
+                loginButton.style.display = 'none';
+                logoutButton.style.display = 'inline-block';
+            } else {
+                loginStatus.classList.remove('logged-in');
+                loginText.textContent = 'Not logged in';
+                loginButton.style.display = 'inline-block';
+                logoutButton.style.display = 'none';
+            }
+            
+            // Login button click handler
+            loginButton.addEventListener('click', function() {
+                window.location.href = 'login.html';
+            });
+            
+            // Logout button click handler
+            logoutButton.addEventListener('click', function() {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('musicGenerationCount');
+                window.location.reload();
+            });
+        });
+    </script>
+</body>
+</html> 

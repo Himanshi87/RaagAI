@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#e7e485 0%,#7a0443 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color:rgb(12, 184, 184);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+section {
+    background: rgba(105, 125, 148, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(1, 67, 99, 0.1);
+}
+
+h2 {
+    margin-bottom: 2.5rem;
+    color: #057582;
+    
+}
+
+.btn {
+    background: linear-gradient(45deg, #0f56e3b9, #b21f57);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    color: #0b1c02;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(6, 43, 146, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.instrument-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+    padding: 12px;
+}
+
+.instrument-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.instrument-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.instrument-item:hover {
+    transform: translateY(-3px);
+}
+
+.instrument-item:hover::before {
+    opacity: 0.5;
+}
+
+.instrument-item[data-instrument="sitar"]::before {
+    background-image: url('images/sitar.jpg');
+}
+
+.instrument-item[data-instrument="tabla"]::before {
+    background-image: url('images/tabla-bg.jpg');
+}
+
+.instrument-item[data-instrument="flute"]::before {
+    background-image: url('images/flute.jpg');
+}
+
+.instrument-item[data-instrument="veena"]::before {
+    background-image: url('images/veena.jpg');
+}
+
+.instrument-item[data-instrument="tanpura"]::before {
+    background-image: url('images/tanpura.jpg');
+}
+
+.instrument-item[data-instrument="santoor"]::before {
+    background-image: url('images/santoor-bg.jpg');
+}
+
+.instrument-item[data-instrument="kanjira"]::before {
+    background-image: url('images/kanjira-bg.jpg');
+}
+
+.instrument-item[data-instrument="sarangi"]::before {
+    background-image: url('images/sarangi.jpg');
+}
+
+.instrument-item.selected {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.instrument-item.selected::before {
+    opacity: 0.6;
+}
+
+.result-box {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.visualization-canvas {
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+} 
